@@ -1,3 +1,6 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
+
 (function () {
 	var WebSocketServer = require("ws").Server;
 	var wss = new WebSocketServer({ port: 8011 });
