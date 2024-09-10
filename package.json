@@ -6,8 +6,9 @@
   "bin": "noname-server.js",
   "type": "module",
   "scripts": {
-    "run": "node noname-server.js --port 8012",
-    "runWithHttps": "node noname-server.js --https=true"
+    "webServer": "node noname-server.js --port 8012",
+    "webServerWithHttps": "node noname-server.js --port 8012 --https=true",
+    "server": "node game/server.js"
   },
   "pkg": {
     "targets": [
