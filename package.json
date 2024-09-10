@@ -1,0 +1,28 @@
+{
+  "name": "i0xi-noname",
+  "version": "1.0.0",
+  "description": "",
+  "main": "noname-server.js",
+  "bin": "noname-server.js",
+  "type": "module",
+  "scripts": {
+    "run": "node noname-server.js --port 8012",
+    "runWithHttps": "node noname-server.js --https=true"
+  },
+  "pkg": {
+    "targets": [
+      "win"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.3",
+    "express": "^4.18.2",
+    "minimist": "^1.2.8"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
