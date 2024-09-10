@@ -1,4 +1,8 @@
 const characters = {
+	kongshu: ["female", "qun", 3, ["olleiluan", "olfuchao"]],
+	ol_kebineng: ["male", "qun", 4, ["olpingduan"], ["name:科比|罐头"]],
+	ol_yuanji: ["female", "wu", 3, ["oljieyan", "oljinghua", "olshuiyue"], ["name:袁|null"]],
+	ol_sunru: ["female", "wu", 3, ["olchishi", "olweimian"]],
 	caoteng: ["male", "qun", 3, ["olyongzu", "olqingliu"]],
 	budugen: ["male", "qun", 4, ["olkouchao"]],
 	mawan: ["male", "qun", 4, ["mashu", "olhunjiang"]],
@@ -54,7 +58,7 @@ const characters = {
 	jin_guohuai: ["female", "jin", 3, ["zhefu", "yidu"]],
 	xiahouxuan: ["male", "wei", 3, ["olhuanfu", "olqingyi", "olzeyue"], ["name:夏侯|玄"]],
 	dengzhong: ["male", "wei", 4, ["dzkanpo", "dzgengzhan"]],
-	wangyan: ["male", "jin", 3, ["yangkuang", "cihuang", "sanku"]],
+	wangyan: ["male", "jin", 4, ["yangkuang", "cihuang", "sanku"]],
 	huojun: ["male", "shu", 4, ["qiongshou", "fenrui"]],
 	caoxiancaohua: ["female", "qun", 3, ["huamu", "qianmeng", "liangyuan", "jisi"], ["name:曹|宪-曹|华"]],
 	jin_zhouchu: ["male", "jin", 4, ["shanduan", "yilie"]],
@@ -171,7 +175,7 @@ const characters = {
 	dingfeng: ["male", "wu", 4, ["reduanbing", "refenxun"]],
 	shamoke: ["male", "shu", 4, ["gzjili"]],
 
-	zhangren: ["male", "qun", 4, ["chuanxin", "zfengshi"]],
+	//zhangren: ["male", "qun", 4, ["chuanxin", "zfengshi"]],
 
 	wangyun: ["male", "qun", 4, ["xinlianji", "xinmoucheng"], ["clan:太原王氏"]],
 	sunqian: ["male", "shu", 3, ["qianya", "shuimeng"]],
@@ -179,6 +183,14 @@ const characters = {
 	quyi: ["male", "qun", 4, ["fuqi", "jiaozi"]],
 
 	luzhi: ["male", "wei", 3, ["qingzhong", "weijing"]],
+	
+	wangcan: ["male", "qun", 3, ["xinfu_sanwen", "xinfu_qiai", "xinfu_denglou"]],
+	re_jsp_pangtong: ["male", "wu", 3, ["xinfu_guolun", "xinfu_songsang"]],
+	lvqian: ["male", "wei", 4, ["xinfu_weilu", "xinfu_zengdao"]],
+	panjun: ["male", "wu", 3, ["xinfu_guanwei", "xinfu_gongqing"]],
+	zhoufang: ["male", "wu", 3, ["xinfu_duanfa", "xinfu_youdi"]],
+	yanjun: ["male", "wu", 3, ["xinfu_guanchao", "xinfu_xunxian"]],
+	liuyan: ["male", "qun", 3, ["xinfu_tushe", "xinfu_limu"]],
 };
 
 export default characters;

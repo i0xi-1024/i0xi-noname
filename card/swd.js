@@ -15,55 +15,6 @@ game.import("card", function () {
 					useful: [7.5, 5, 2],
 				},
 			},
-			// yihuajiemu:{
-			// 	fullskin:true,
-			// 	type:'trick',
-			// 	enable:true,
-			// 	singleCard:true,
-			// 	filterTarget:function(card,player,target){
-			// 		if(target.isMin()) return false;
-			// 		if(ui.selected.targets.length){
-			// 			return target.getCards('e',{subtype:'equip5'}).length==0;
-			// 		}
-			// 		else{
-			// 			return target.getCards('e',{subtype:'equip5'}).length>0;
-			// 		}
-			// 	},
-			// 	selectTarget:2,
-			// 	multitarget:true,
-			// 	complexTarget:true,
-			// 	multicheck:function(){
-			// 		return game.hasPlayer(function(current){
-			// 			return current.getEquip(5);
-			// 		})&&game.hasPlayer(function(current){
-			// 			return !current.getEquip(5);
-			// 		});
-			// 	},
-			// 	content:function(){
-			// 		if(target.getEquip(5)){
-			// 			target.$give(target.getEquip(5),event.addedTarget);
-			// 			event.addedTarget.equip(target.getEquip(5));
-			// 			game.delay();
-			// 		}
-			// 	},
-			// 	ai:{
-			// 		order:1,
-			// 		result:{
-			// 			target:function(player,target){
-			// 				if(target.getCards('e',{subtype:'equip5'}).length){
-			// 					if(get.attitude(target,player)>0){
-			// 						return -0.5;
-			// 					}
-			// 					return -1;
-			// 				}
-			// 				return 1;
-			// 			}
-			// 		},
-			// 		tag:{
-			// 			loseCard:1
-			// 		}
-			// 	}
-			// },
 			liuxinghuoyu: {
 				fullskin: true,
 				type: "trick",
@@ -1022,40 +973,6 @@ game.import("card", function () {
 					},
 				},
 			},
-			shenmiguo_old: {
-				fullskin: true,
-				type: "trick",
-				enable: true,
-				selectTarget: -1,
-				filterTarget: function (card, player, target) {
-					return target == player;
-				},
-				modTarget: true,
-				content: function () {
-					var list = [];
-					for (var i in lib.card) {
-						if (lib.card[i].derivation) {
-							list.push(i);
-						}
-					}
-					if (get.mode() == "stone") {
-						list.remove("hslingjian_jinjilengdong");
-					}
-					if (list.length) {
-						target.gain(game.createCard(list.randomGet()), "draw");
-					}
-				},
-				ai: {
-					basic: {
-						order: 7.3,
-						useful: 2,
-						value: 6,
-					},
-					result: {
-						target: 2,
-					},
-				},
-			},
 			shenmiguo: {
 				fullskin: true,
 				type: "basic",
@@ -1731,66 +1648,6 @@ game.import("card", function () {
 					},
 					tag: {
 						recover: 1,
-					},
-				},
-			},
-			huanpodan_old: {
-				type: "basic",
-				enable: function () {
-					return game.dead.length > 0;
-				},
-				notarget: true,
-				mode: ["identity", "guozhan"],
-				fullskin: true,
-				content: function () {
-					"step 0";
-					var list = [];
-					for (var i = 0; i < game.dead.length; i++) {
-						list.push(game.dead[i].name);
-					}
-					player.chooseButton(
-						ui.create.dialog("选择要复活的角色", [list, "character"]),
-						function (button) {
-							for (var i = 0; i < game.dead.length && game.dead[i].name != button.link; i++);
-							return get.attitude(_status.event.player, game.dead[i]);
-						},
-						true
-					);
-					"step 1";
-					if (result.bool) {
-						for (
-							var i = 0;
-							i < game.dead.length && game.dead[i].name != result.buttons[0].link;
-							i++
-						);
-						var dead = game.dead[i];
-						dead.revive(1);
-						game.addVideo("revive", dead);
-						event.dead = dead;
-					} else {
-						event.finish();
-					}
-					"step 2";
-					if (event.dead) event.dead.draw();
-				},
-				ai: {
-					basic: {
-						useful: [4, 2],
-						value: [7, 2],
-					},
-					order: function (card, player) {
-						for (var i = 0; i < game.dead.length; i++) {
-							if (get.attitude(player, game.dead[i]) > 3) return 7;
-						}
-						return -10;
-					},
-					result: {
-						player: function (player) {
-							for (var i = 0; i < game.dead.length; i++) {
-								if (get.attitude(player, game.dead[i]) > 3) return 2;
-							}
-							return -10;
-						},
 					},
 				},
 			},
@@ -3245,44 +3102,6 @@ game.import("card", function () {
 					},
 				},
 			},
-			shouna_old: {
-				trigger: { global: "discardAfter" },
-				filter: function (event, player) {
-					if (player.hasSkill("shouna2")) return false;
-					if (_status.currentPhase == event.player) return false;
-					if (event.player == player) return false;
-					for (var i = 0; i < event.cards.length; i++) {
-						if (get.position(event.cards[i]) == "d") {
-							return true;
-						}
-					}
-					return false;
-				},
-				forced: true,
-				content: function () {
-					var cards = trigger.cards.slice(0);
-					for (var i = 0; i < cards.length; i++) {
-						if (get.position(cards[i]) != "d") {
-							cards.splice(i, 1);
-							i--;
-						}
-					}
-					var hu = player.getEquip("lianyaohu");
-					if (cards.length && hu) {
-						if (!hu.storage.shouna) {
-							hu.storage.shouna = [];
-						}
-						player.addTempSkill("shouna2");
-						player.$gain2(cards);
-						for (var i = 0; i < cards.length; i++) {
-							hu.storage.shouna.push(cards[i]);
-							ui.special.appendChild(cards[i]);
-						}
-						game.log(player, "将", cards, "收入炼妖壶");
-					}
-				},
-			},
-			shouna2: {},
 			donghuangzhong: {
 				trigger: { player: "phaseEnd" },
 				direct: true,
@@ -3328,71 +3147,6 @@ game.import("card", function () {
 						target.$draw(card);
 						game.delay();
 					}
-				},
-			},
-			donghuangzhong_old: {
-				mode: ["identity", "guozhan"],
-				enable: "phaseUse",
-				usable: 1,
-				filter: function (event, player) {
-					return (
-						event.player == game.me &&
-						(game.dead.length || game.players.length + game.dead.length < 8)
-					);
-				},
-				content: function () {
-					"step 0";
-					var list = [];
-					for (var i = 0; i < game.dead.length; i++) {
-						list.push(game.dead[i].name);
-					}
-					if (game.dead.length) {
-						player.chooseButton(
-							ui.create.dialog([list, "character"]),
-							function (button) {
-								for (
-									var i = 0;
-									i < game.dead.length && game.dead[i].name != button.link;
-									i++
-								);
-								return -get.attitude(_status.event.player, game.dead[i]);
-							},
-							true
-						);
-						if (game.players.length + game.dead.length < 8) {
-							event.control = ui.create.control("新角色", ui.click.cancel);
-						}
-					}
-					"step 1";
-					if (result.bool) {
-						for (
-							var i = 0;
-							i < game.dead.length && game.dead[i].name != result.buttons[0].link;
-							i++
-						);
-						game.removePlayer(game.dead[i]);
-						player.recover();
-					} else {
-						var group = player.group;
-						if (group == "unknown") group = lib.group.randomGet();
-						var list = [];
-						for (var i in lib.character) {
-							if (lib.character[i][1] == group) list.push(i);
-						}
-						var player2 = game.addPlayer();
-						if (get.config("double_character")) {
-							var list2 = list.randomGets(2);
-							player2.init(list2[0], list2[1]);
-						} else {
-							player2.init(list.randomGet());
-						}
-						player2.identity = player.identity;
-						if (player2.identity == "zhu") player2.identity = "zhong";
-						player2.setIdentity();
-						player2.identityShown = true;
-						if (group != "unknown") player.loseHp(player2.maxHp);
-					}
-					if (event.control) event.control.close();
 				},
 			},
 			xuanyuanjian: {
@@ -3445,65 +3199,6 @@ game.import("card", function () {
 				},
 				content: function () {
 					trigger.player.chooseToDiscard(true, "he");
-				},
-			},
-			shouhua: {
-				mode: ["identity", "infinity"],
-				enable: "phaseUse",
-				filter: function (event, player) {
-					return player == game.me;
-				},
-				usable: 1,
-				filterTarget: function (card, player, target) {
-					return target != game.zhu && target != game.me && target.hp < target.maxHp;
-				},
-				filterCard: true,
-				check: function (card) {
-					return get.value(card);
-				},
-				discard: false,
-				prepare: "throw",
-				content: function () {
-					"step 0";
-					target.$turn2();
-					target.style.left = "calc(50% - 120px)";
-					target.style.top = "calc(50% - 60px)";
-					game.delay(0, 2500);
-					"step 1";
-					target.removeAttribute("style");
-					if (
-						Math.random() <
-						((get.value(cards[0]) + 1) * (target.maxHp - target.hp)) / (60 * target.maxHp)
-					) {
-						event.position = target.dataset.position;
-						target.dataset.position = player.dataset.position;
-						target.delete();
-						event.success = true;
-					}
-					game.delay();
-					"step 2";
-					if (event.success) {
-						player.popup("收化成功");
-						game.log(player, "将", target, "收化");
-						target.dataset.position = event.position;
-						var card = player.getEquip("lianyaohu");
-						if (!card.storage.shouhua) card.storage.shouhua = [];
-						card.storage.shouhua.push(target);
-						game.removePlayer(target);
-						game.checkResult();
-					} else {
-						player.popup("收化失败");
-						target.gain(cards);
-						target.$gain2(cards);
-					}
-					game.delay();
-				},
-				ai: {
-					result: {
-						player: function () {
-							return Math.random() - 0.4;
-						},
-					},
 				},
 			},
 			haotianta: {
@@ -4290,17 +3985,6 @@ game.import("card", function () {
 						},
 					},
 				},
-			},
-			jiguanyaoshu_skill_old: {
-				enable: "phaseUse",
-				filter: function (event, player) {
-					return player.countCards("h", { type: ["trick", "delay"] }) > 0;
-				},
-				filterCard: { type: ["trick", "delay"] },
-				check: function (card) {
-					return 5 - get.value(card);
-				},
-				viewAs: { name: "jiguanshu" },
 			},
 			jiguanyaoshu_skill: {
 				trigger: { player: "loseEnd" },
@@ -5214,8 +4898,6 @@ game.import("card", function () {
 			g_hufu_shan: "符闪",
 			g_hufu_jiu: "符酒",
 			hufu_info: "你可以将一张玉符当作杀、闪或酒使用或打出。",
-			// yihuajiemu:'移花接木',
-			// yihuajiemu_info:'对一名装备区内有宝物的角色使用，将其宝物牌转移至另一名角色。',
 			liuxinghuoyu: "流星火羽",
 			liuxinghuoyu_info: "出牌阶段，对一名角色使用，令目标弃置两张牌，或受到1点火焰伤害。",
 			g_yuchan_equip: "玉蝉",
@@ -5642,9 +5324,6 @@ game.import("card", function () {
 			["heart", 1, "hufu"],
 			["spade", 1, "hufu"],
 			["club", 1, "qiankundai"],
-			// ['heart',3,'yihuajiemu'],
-			// ['diamond',1,'yihuajiemu'],
-			// ['diamond',7,'yihuajiemu'],
 
 			["diamond", 3, "liuxinghuoyu", "fire"],
 			["heart", 6, "liuxinghuoyu", "fire"],

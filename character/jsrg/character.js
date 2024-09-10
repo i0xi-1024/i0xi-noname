@@ -173,6 +173,7 @@ const characters = {
 		hp: 4,
 		skills: ["jsrgcangchu", "jsrgshishou"],
 		dieAudios: ["re_chunyuqiong"],
+		names: "淳于|琼",
 	},
 	//转
 	jsrg_guojia: {
@@ -382,7 +383,7 @@ const characters = {
 	jsrg_zhangjiao: {
 		sex: "male",
 		group: "qun",
-		hp: 3,
+		hp: 4,
 		skills: ["jsrgxiangru", "jsrgwudao"],
 	},
 	jsrg_yangqiu: {
@@ -400,7 +401,7 @@ const characters = {
 	jsrg_zhanghuan: {
 		sex: "male",
 		group: "qun",
-		hp: 3,
+		hp: 4,
 		skills: ["jsrgzhushou", "jsrgyangge"],
 	},
 	jsrg_liubiao: {
