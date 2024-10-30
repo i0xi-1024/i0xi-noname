@@ -1,0 +1,27 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Login the Docker Hub
+      env: 
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_HUB_PASSWORD: ${{ secrets.DOCKER_HUB_PASSWORD }}
+      run: docker login -u $DOCKER_HUB_USERNAME -p $DOCKER_HUB_PASSWORD
+      
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag i0xi/noname:latest
+      
+    - name: Push the Docker image
+      run: docker push i0xi/noname:latest
+      
