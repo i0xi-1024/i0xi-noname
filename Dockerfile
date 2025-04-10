@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY ./docker/* ./
 
-RUN npm install -g deno & npm install ws & deno install
+RUN npm install -g deno && npm install ws && deno install
 
 COPY . .
 
