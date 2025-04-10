@@ -1,2 +1,2 @@
-node --experimental-default-type=commonjs noname-server.js --server &
+deno task start &
 (cd game && node --experimental-default-type=commonjs server.js)

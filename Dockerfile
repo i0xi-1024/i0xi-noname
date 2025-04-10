@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY ./docker/* ./
 
-RUN npm install ws body-parser express minimist
+RUN npm install -g deno & npm install ws & deno install
 
 COPY . .
 
