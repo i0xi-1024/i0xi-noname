@@ -1,10 +1,12 @@
-FROM node:20
+FROM node:22
 
 WORKDIR /app
 
 COPY ./docker/* ./
 
-RUN npm install -g deno && npm install ws && deno install
+RUN npm install -g deno && deno install
+
+COPY . .
 
 EXPOSE 8080
 EXPOSE 8089
